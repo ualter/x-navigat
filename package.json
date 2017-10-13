@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "express": "^4.16.2",
+    "ip": "^1.1.5",
     "moment": "^2.18.1",
     "string": "^3.3.3",
     "utils": "file:src/js/utils",

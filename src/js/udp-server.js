@@ -3,9 +3,11 @@ const logger       = require('./utils/logger.js')(module);
 const model        = require('./model');
 const dgram        = require('dgram');
 const EventEmitter = require('events');
+const ip           = require("ip");
 
 const PORT   = 8881;
-const HOST   = '192.168.0.22';
+const HOST   = ip.address();
+//'192.168.0.22';
 
 const server = dgram.createSocket('udp4');
 

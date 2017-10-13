@@ -3,9 +3,10 @@ const logger  = require('./utils/logger.js')(module);
 const model   = require('./model');
 const http    = require('http');
 const express = require('express');
+const ip      = require("ip");
 
 const PORT     = 8000;
-const HOST     = '192.168.0.22';
+const HOST     = ip.address(); //'192.168.0.22';
 const app      = express();
 
 var planesList = new model.PlanesList();
