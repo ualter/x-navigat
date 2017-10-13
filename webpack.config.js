@@ -1,4 +1,5 @@
 const path = require('path');
+const fs   = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
@@ -7,11 +8,23 @@ const htmlMinifierObj = {
   removeComments: true
 }
 
+var nodeModules = {};
+fs.readdirSync('node_modules')
+  .filter(function(x) {
+    return ['.bin'].indexOf(x) === -1;
+  })
+  .forEach(function(mod) {
+    nodeModules[mod] = 'commonjs ' + mod;
+  });
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    front: './src/index-front.js',
+    back: './src/index-back.js'
+  },
+  target: 'node',
   output: {
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
   module: {
@@ -29,7 +42,7 @@ module.exports = {
        {
          test: /\.(png|svg|jpg|gif)$/,
          use: [
-           'file-loader'
+           'file-loader',
          ]
        }
      ]
@@ -46,5 +59,6 @@ module.exports = {
       template: './src/html/my-index.ejs',
       inject: false
     })
-  ]
+  ],
+  externals: nodeModules
 };

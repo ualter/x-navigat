@@ -1,11 +1,12 @@
 const utils        = require('./utils/utils.js');
 const logger       = require('./utils/logger.js')(module);
 const model        = require('./model');
+const dgram        = require('dgram');
 const EventEmitter = require('events');
 
 const PORT   = 8881;
 const HOST   = '192.168.0.22';
-const dgram  = require('dgram');
+
 const server = dgram.createSocket('udp4');
 
 server.on('listening', startServer);

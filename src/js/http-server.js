@@ -15,8 +15,13 @@ app.use( (err, request, response, next) => {
   response.status(500).send('Something broke!')
 })
 
+app.get("/hello", (request, response) => {
+    response.end('Hello!');
+})
+
 app.get("/", (request, response) => {
-    response.end('Hello');
+    //response.sendFile("index.html", {"root": __dirname});
+    response.sendFile("c:/Users/Ualter/Developer/x-navigat/x-navigat/dist/index.html");
 })
 
 app.get("/data", (request, response) => {

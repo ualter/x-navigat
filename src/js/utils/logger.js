@@ -11,9 +11,13 @@ const myJsonFormat = winston.format.json(info => {
 });
 
 var getLabel = function(callingModule) {
-    var parts = callingModule.filename.split('\\');
-    var lbl   = parts[parts.length - 2] + '/' + parts.pop();
-    return S(lbl).padRight(22,'-') + '>';
+    if ( callingModule.filename !== undefined ) {
+      var parts = callingModule.filename.split('\\');
+      var lbl   = parts[parts.length - 2] + '/' + parts.pop();
+      return S(lbl).padRight(22,'-') + '>';
+    } else {
+      return 'bundled';
+    }
 };
 
 module.exports = function(callingModule) {

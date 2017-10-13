@@ -909,8 +909,9 @@ function toogleLabelWaypoint() {
 
 // ready when you are!
 google.maps.event.addDomListener(window, 'load', initialize);
-window.showNavaids         = showNavaids;
+/*window.showNavaids         = showNavaids;
 window.toggleFlightPanel   = toggleFlightPanel;
 window.toggleChaseAirplane = toggleChaseAirplane;
 window.toogleLabelRoute    = toogleLabelRoute;
 window.toogleLabelWaypoint = toogleLabelWaypoint;
+*/
