@@ -1,13 +1,16 @@
-const utils   = require('./utils/utils.js');
-const logger  = require('./utils/logger.js')(module);
-const model   = require('./model');
-const http    = require('http');
-const express = require('express');
-const ip      = require("ip");
-
-const PORT     = 8000;
-const HOST     = ip.address(); //'192.168.0.22';
-const app      = express();
+const utils     = require('./utils/utils.js');
+const logger    = require('./utils/logger.js')(module);
+const model     = require('./model');
+const http      = require('http');
+const express   = require('express');
+const ip        = require("ip");
+const path      = require('path');
+const appRoot   = require('app-root-path');
+ 
+const PORT      = 8000;
+const HOST      = ip.address(); //'192.168.0.22';
+const pathFiles = appRoot.path + "\\dist";
+const app       = express();
 
 var planesList = new model.PlanesList();
 
@@ -21,8 +24,11 @@ app.get("/hello", (request, response) => {
 })
 
 app.get("/", (request, response) => {
-    //response.sendFile("index.html", {"root": __dirname});
-    response.sendFile("c:/Users/Ualter/Developer/x-navigat/x-navigat/dist/index.html");
+    response.sendFile(pathFiles + "\\index.html");
+})
+
+app.get("/front.bundle.js", (request, response) => {
+    response.sendFile(pathFiles + "\\front.bundle.js");
 })
 
 app.get("/data", (request, response) => {
