@@ -12,7 +12,7 @@ const HOST      = ip.address(); //'192.168.0.22';
 const pathFiles = appRoot.path + "\\dist";
 const app       = express();
 
-var planesList = new model.PlanesList();
+var airPlane = new model.AirPlane();
 
 app.use( (err, request, response, next) => {
   logger.error(err);
@@ -34,9 +34,9 @@ app.get("/front.bundle.js", (request, response) => {
 app.get("/data", (request, response) => {
     response.type('json');
     // Non Pretty-Print
-    //response.send( planesList );
+    //response.send( airPlane );
     // Pretty-Print
-    response.send(JSON.stringify(planesList, null, 4));
+    response.send(JSON.stringify(airPlane, null, 4));
     
 })
 
@@ -50,8 +50,8 @@ app.listen(PORT, (err) => {
     logger.info('HTTP Server listening on ' + HOST + ":" + PORT);
 })
 
-var receiveUpdate = function (_planesList) {
-    planesList = _planesList;
+var receiveUpdate = function (_airPlane) {
+    airPlane = _airPlane;
 }
 
 module.exports = {

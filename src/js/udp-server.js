@@ -29,7 +29,7 @@ const Constants = new model.Constants();
 function receiveMessage(message, remote) {
 	try {
 		
-		var planesList = new model.PlanesList();
+		var airPlane = new model.AirPlane();
 		var ip         = remote.address;
 		var msgs       = message.toString('utf8');
 
@@ -43,45 +43,45 @@ function receiveMessage(message, remote) {
 
 	   		switch(label) {
 	   			 case Constants.DESTINATION: {
-	   				planesList.setDestination(ip,value)
+	   				airPlane.setDestination(ip,value)
 	   				break;
 	   			 }
 				 case Constants.GAME_PAUSED: {
-				 	planesList.setPause(ip,value)
+				 	airPlane.setPause(ip,value)
 				    break;
 				 }
 				 case Constants.BAROMETER: {
-				 	planesList.setBarometer(ip,value)
+				 	airPlane.setBarometer(ip,value)
 				    break;
 				 }
 				 case Constants.COMPASS_HEADING: {
-				 	planesList.setCompassHeading(ip,value)
+				 	airPlane.setCompassHeading(ip,value)
 				    break;
 				 }
 				 case Constants.NAV1_FREQUENCY: {
-				 	planesList.setNav1Freq(ip,value)
+				 	airPlane.setNav1Freq(ip,value)
 				    break;
 				 }
 				 case Constants.NAV2_FREQUENCY: {
-				 	planesList.setNav2Freq(ip,value)
+				 	airPlane.setNav2Freq(ip,value)
 				    break;
 				 }
 				 case Constants.AIRSPEED: {
-				 	planesList.setAirSpeed(ip,value)
+				 	airPlane.setAirSpeed(ip,value)
 				    break;
 				 }
 				 case Constants.ALTITUDE: {break;}
 				 case Constants.FUEL_QUANTITY: {
-				 	planesList.setFuelQuantity(ip,value)
+				 	airPlane.setFuelQuantity(ip,value)
 				    break;
 				 }
 				 case Constants.APU_RUNNING: {break;}
 				 case Constants.COM1_FREQUENCY: {
-				 	planesList.setCom1Freq(ip,value)
+				 	airPlane.setCom1Freq(ip,value)
 				    break;
 				 }
 				 case Constants.COM2_FREQUENCY: {
-				 	planesList.setCom2Freq(ip,value)
+				 	airPlane.setCom2Freq(ip,value)
 				    break;
 				 }
 				 case Constants.COM1_FREQUENCY_STDBY: {break;}
@@ -112,15 +112,15 @@ function receiveMessage(message, remote) {
 				 case Constants.NAV2_DISTANCE_NAUTICALS: {break;}
 				 case Constants.NAV2_DISTANCE_MINUTES: {break;}
 				 case Constants.OUTSIDE_TEMPERATURE_CELSIUS: {
-				 	planesList.setOutsideTemperature(ip,value);
+				 	airPlane.setOutsideTemperature(ip,value);
 				    break;
 				 }
 				 case Constants.VERTICAL_SPEED: {
-				 	planesList.setVSpeed(ip,value);
+				 	airPlane.setVSpeed(ip,value);
 				    break;
 				 }
 				 case Constants.GROUND_SPEED: {
-				 	planesList.setGroundSpeed(ip,value);
+				 	airPlane.setGroundSpeed(ip,value);
 				    break;
 				 }
 				 case Constants.TRUE_AIRSPEED: {break;}
@@ -152,7 +152,7 @@ function receiveMessage(message, remote) {
 	   		   logger.debug("Message...: %s - %s",label,value);
 		});
 		   
-		eventEmitter.emit('receivedMessage', planesList);
+		eventEmitter.emit('receivedMessage', airPlane);
 
     } catch (err) {
    		logger.error(new Error(err.toString()).stack);
