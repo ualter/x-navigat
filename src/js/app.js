@@ -1,3 +1,4 @@
+const config     = require('./config');
 const utils      = require('./utils/utils.js');
 const logger     = require('./utils/logger.js')(module);
 const model      = require('./model');
@@ -12,7 +13,12 @@ udpServer.eventEmitter.on('receivedMessage', (_planesList) => {
     planesList = _planesList;
     httpServer.receiveUpdate(planesList);
 
-    logger.debug("_planesList...: %s",planesList);
+    Object.keys(planesList.getAllAirPlanes()).forEach(ipAirPlane => {
+        airPlane = planesList.getAirPlane(ipAirPlane);
+        logger.info("Airplane '%s' at Longitude/Latitude: %s/%s, AirSpeed: %s", airPlane.getIp(),airPlane.getLatMap(), airPlane.getLonMap(), airPlane.getAirSpeed());
+    });
+
+    logger.debug("List of airplanes...: %s", JSON.stringify(planesList, null, 4));
 });
 
 

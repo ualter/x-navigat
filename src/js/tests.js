@@ -1,4 +1,12 @@
-const model = require('./src/js/model');
+const model   = require('./model');
+const logger  = require('./utils/logger.js')(module);
+const config  = require('./config');
+
+
+console.log(config.logger.fileTrace.level);
+//logger.info("Hello %s", "ualter");
+
+/*
 
 testJsonModel();
 
@@ -25,6 +33,5 @@ function testJsonModel() {
         console.log(planesList.airPlanes[ip].airSpeed);
     }
 }
+*/
 
-// console.log(planesList.getAirPlane("localhost").airSpeed);
-// console.log(planesList.airPlane["localhost"].airSpeed);

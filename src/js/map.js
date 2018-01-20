@@ -116,12 +116,21 @@ function initialize() {
 	});
 
 	$('body').keydown(function(e) {
+		// Character: '
 		if (e.keyCode == 192) {
 			e.preventDefault();
 			toggleFlightPanel();
 		}
+		// Pause Key
 		if (e.keyCode == 19) {
 			$.getJSON("pause").done(function(data){}).error(function() {showError('Not able to Pause X-Plane.')});
+		}
+		// Character: C
+		if (e.keyCode == 67) {
+			// Clean routes
+			//planeList[ip].trace.setMap(null);
+			//planeList[ip].marker.setMap(null);
+
 		}
 	});
 	
@@ -231,11 +240,10 @@ function checkFlightPlanBoxAndLoad() {
 						loadFlightPlan();
 						loadingFlightPlanState(false);
 				})
-				.error(
-						function() {
-							loadingFlightPlanState(false);
-							showError('Please check the connection with http://server:port/flightplan, is not working.')
-						});
+				.error(function() {
+						loadingFlightPlanState(false);
+						showError('Please check the connection with http://server:port/flightplan, is not working.')
+				});
 		}
 	}
 }

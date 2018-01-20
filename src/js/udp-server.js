@@ -35,7 +35,8 @@ function receiveMessage(message, remote) {
 		var msgs                = message.toString('utf8');
 		var airPlane            = new model.AirPlane(ip);
 
-		logger.info("Message received: %s", msgs);
+		logger.info("Receiving airplane message from %s", ip);
+		logger.debug("UDP Message received from %s: %s", ip, msgs);
 
 	   	msgs.split(";").map( msg => {
 
@@ -155,7 +156,7 @@ function receiveMessage(message, remote) {
 	   				break;	
 			   }
 			   
-	   		   logger.debug("Message...: %s - %s",label,value);
+	   		   logger.debug("Message attribute parsed...: %s - %s", label, value);
 		});
 		   
 		planesList.addAirPlane(airPlane.getIp(),airPlane);

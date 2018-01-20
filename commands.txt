@@ -10,6 +10,11 @@ npm install html-webpack-plugin --save-dev
 npm install clean-webpack-plugin --save-dev
 npm install --save-dev webpack-dev-server
 
+# Update Packages
+npm i -g npm-check-updates
+npm-check-updates -u
+npm install
+
 # Run webpack
 ./node_modules/.bin/webpack src/index.js dist/bundle.js
 
