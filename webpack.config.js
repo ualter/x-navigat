@@ -2,6 +2,8 @@ const path = require('path');
 const fs   = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
 const htmlMinifierObj = {
   collapseWhitespace: true,
@@ -58,7 +60,11 @@ module.exports = {
       title: 'X-Navigat',
       template: './src/html/my-index.ejs',
       inject: false
-    })
+    }),
+    new CopyWebpackPlugin([
+      { from: './src/js/libs', to: 'libs' },
+      { from: './src/images', to: 'images' },
+    ])
   ],
   externals: nodeModules
 };

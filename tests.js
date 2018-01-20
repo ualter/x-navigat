@@ -16,6 +16,8 @@ function testJsonModel() {
     planesList.addAirPlane("192.168.0.1",airPlane1);
     planesList.addAirPlane("200.245.20.3",airPlane2);
 
+    console.log(JSON.stringify(planesList, null, 4));
+
     for(var ip in planesList.airPlanes) {
         console.log("----> " + ip);
         console.log(planesList.getAirPlane(ip).getLatMap());

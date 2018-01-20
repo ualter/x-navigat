@@ -4,10 +4,15 @@
 		<title>X-Plane Map</title>
 	</head>
 	<body>
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkS0sO3oxa5OOmH1ujaWYFLjKLOh6OSNw&libraries=geometry" async defer></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkS0sO3oxa5OOmH1ujaWYFLjKLOh6OSNw&libraries=geometry"></script>
+		<!--
+		<script src="http://www.google.com/jsapi"></script> -->
 		<script src="https://code.jquery.com/jquery-2.1.3.js"></script>
-		<script src="http://www.google.com/jsapi"></script>
+		<script src="http://localhost:8000/jquery-blink.js"></script>
+		<script src="http://localhost:8000/numeral.min.js"></script>
+		<script src="http://localhost:8000/markerwithlabel.js"></script>
 		<script src="http://localhost:8000/front.bundle.js"></script>
+		
 		<div id="map-canvas">
 		</div>
 		<div id="flightplan-button">Flight Plan (')</div>
@@ -57,50 +62,50 @@
 		<script type="text/javascript">
 			$(document).ready(function()
 			{
-			        $('.blink').blink(400); // default is 500ms blink interval.
-			});
-			
-			$('input[name=plane]').change(function() {
-				$('.planeRow').removeClass("followed");
-				$('input[name=plane]:checked').parents('.planeRow').addClass("followed");
-
-			});
-			$('#showApt').change(function() {
-				if(aptLayer == undefined) {
-					aptLayer = new google.maps.Data();
-					$('#loading').html('Loading airport data (3MB file) ...');
-					
-					aptLayer.setStyle({
-						title: "Ualter",
-						icon: {
-							strokeColor: "#ffffff",
-							path: google.maps.SymbolPath.CIRCLE
-						}
-					});
-					aptLayer.loadGeoJson("apt.geojson");
-					
-					$('#loading').html('');
-				}
-				$('#loading').html('Applying airports ...');
-				aptLayer.setMap(($(this).is(':checked') ? map : null));
-				$('#loading').html('');
+				$('.blink').blink(400); // default is 500ms blink interval.
 				
+				$('input[name=plane]').change(function() {
+					$('.planeRow').removeClass("followed");
+					$('input[name=plane]:checked').parents('.planeRow').addClass("followed");
+
+				});
+				$('#showApt').change(function() {
+					if(aptLayer == undefined) {
+						aptLayer = new google.maps.Data();
+						$('#loading').html('Loading airport data (3MB file) ...');
+						
+						aptLayer.setStyle({
+							title: "Ualter",
+							icon: {
+								strokeColor: "#ffffff",
+								path: google.maps.SymbolPath.CIRCLE
+							}
+						});
+						aptLayer.loadGeoJson("apt.geojson");
+						
+						$('#loading').html('');
+					}
+					$('#loading').html('Applying airports ...');
+					aptLayer.setMap(($(this).is(':checked') ? map : null));
+					$('#loading').html('');
+					
+				});
+				
+				$('#navaids-button').click(showNavaids);
+				$('#flightplan-button').click(toggleFlightPanel);
+				$('#followThePlane-button').click(toggleChaseAirplane);
+				$('#labelRoute-button').click(toogleLabelRoute);
+				$('#labelWaypoint-button').click(toogleLabelWaypoint);
+				
+				if ( $('textarea#boxFlightPlan').val() != '' ) {
+					window.setTimeout(function() {
+						toggleFlightPanel();
+					},2000);
+					window.setTimeout(function() {
+						toggleFlightPanel();
+					},2500);
+				}
 			});
-			
-			$('#navaids-button').click(showNavaids);
-			$('#flightplan-button').click(toggleFlightPanel);
-			$('#followThePlane-button').click(toggleChaseAirplane);
-			$('#labelRoute-button').click(toogleLabelRoute);
-			$('#labelWaypoint-button').click(toogleLabelWaypoint);
-			
-			if ( $('textarea#boxFlightPlan').val() != '' ) {
-				window.setTimeout(function() {
-					toggleFlightPanel();
-				},2000);
-				window.setTimeout(function() {
-					toggleFlightPanel();
-				},2500);
-			}
 		</script>
 	</body>	
 </html>

@@ -1,0 +1,23 @@
+{
+   "192-168-0-22":{
+      "com2Freq":"118.00",
+      "bearing":355.0,
+      "alt":1823.67,
+      "gSpeed":0.0010218188,
+      "barometer":"2992",
+      "fuelQuantity":"6539.8",
+      "lon":-3.5566,
+      "nav1Freq":"109.10",
+      "dest":"NTFND-NOT FOUND (Lat.\/Long.)",
+      "pause":"0",
+      "gpsDistNm":"0.0",
+      "compassHeading":"149",
+      "vSpeed":0.040053,
+      "airSpeed":-1.02128,
+      "gpsDistTime":"0",
+      "outsideTemp":"14.6",
+      "com1Freq":"130.60",
+      "nav2Freq":"116.45",
+      "lat":40.4589
+   }
+}

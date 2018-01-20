@@ -10,7 +10,10 @@ PlanesList.prototype = {
 	},
 	addAirPlane: function(ip, _airPlane) {
 		this.airPlanes[ip] = _airPlane;
-    }
+	},
+	getAllAirPlanes: function() {
+		return this.airPlanes;
+	}
 };
 
 

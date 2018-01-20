@@ -17,7 +17,7 @@ server.bind(PORT, HOST);
 
 function startServer() {
 	var address = server.address();
-	logger.info('UDP Server listening on ' + address.address + ":" + address.port);
+	logger.info('UDP  Server listening on ' + address.address + ":" + address.port);
 }
 
 class MyEmitter extends EventEmitter {}
@@ -26,14 +26,16 @@ exports.eventEmitter = eventEmitter;
 
 const Constants = new model.Constants();
 
+var planesList = new model.PlanesList();
+
 function receiveMessage(message, remote) {
 	try {
 		
-		var airPlane = new model.AirPlane();
-		var ip         = remote.address;
-		var msgs       = message.toString('utf8');
+		var ip                  = remote.address;
+		var msgs                = message.toString('utf8');
+		var airPlane            = new model.AirPlane(ip);
 
-		logger.info("Message received: %s",msgs);
+		logger.info("Message received: %s", msgs);
 
 	   	msgs.split(";").map( msg => {
 
@@ -43,45 +45,45 @@ function receiveMessage(message, remote) {
 
 	   		switch(label) {
 	   			 case Constants.DESTINATION: {
-	   				airPlane.setDestination(ip,value)
+	   				airPlane.setDestination(value)
 	   				break;
 	   			 }
 				 case Constants.GAME_PAUSED: {
-				 	airPlane.setPause(ip,value)
+				 	airPlane.setPause(value)
 				    break;
 				 }
 				 case Constants.BAROMETER: {
-				 	airPlane.setBarometer(ip,value)
+				 	airPlane.setBarometer(value)
 				    break;
 				 }
 				 case Constants.COMPASS_HEADING: {
-				 	airPlane.setCompassHeading(ip,value)
+				 	airPlane.setCompassHeading(value)
 				    break;
 				 }
 				 case Constants.NAV1_FREQUENCY: {
-				 	airPlane.setNav1Freq(ip,value)
+				 	airPlane.setNav1Freq(value)
 				    break;
 				 }
 				 case Constants.NAV2_FREQUENCY: {
-				 	airPlane.setNav2Freq(ip,value)
+				 	airPlane.setNav2Freq(value)
 				    break;
 				 }
 				 case Constants.AIRSPEED: {
-				 	airPlane.setAirSpeed(ip,value)
+				 	airPlane.setAirSpeed(value)
 				    break;
 				 }
 				 case Constants.ALTITUDE: {break;}
 				 case Constants.FUEL_QUANTITY: {
-				 	airPlane.setFuelQuantity(ip,value)
+				 	airPlane.setFuelQuantity(value)
 				    break;
 				 }
 				 case Constants.APU_RUNNING: {break;}
 				 case Constants.COM1_FREQUENCY: {
-				 	airPlane.setCom1Freq(ip,value)
+				 	airPlane.setCom1Freq(value)
 				    break;
 				 }
 				 case Constants.COM2_FREQUENCY: {
-				 	airPlane.setCom2Freq(ip,value)
+				 	airPlane.setCom2Freq(value)
 				    break;
 				 }
 				 case Constants.COM1_FREQUENCY_STDBY: {break;}
@@ -112,31 +114,35 @@ function receiveMessage(message, remote) {
 				 case Constants.NAV2_DISTANCE_NAUTICALS: {break;}
 				 case Constants.NAV2_DISTANCE_MINUTES: {break;}
 				 case Constants.OUTSIDE_TEMPERATURE_CELSIUS: {
-				 	airPlane.setOutsideTemperature(ip,value);
+				 	airPlane.setOutsideTemperature(value);
 				    break;
 				 }
 				 case Constants.VERTICAL_SPEED: {
-				 	airPlane.setVSpeed(ip,value);
+				 	airPlane.setVSpeed(value);
 				    break;
 				 }
 				 case Constants.GROUND_SPEED: {
-				 	airPlane.setGroundSpeed(ip,value);
+				 	airPlane.setGroundSpeed(value);
 				    break;
 				 }
 				 case Constants.TRUE_AIRSPEED: {break;}
-				 case Constants.LATITUDE: {break;}
+				 case Constants.LATITUDE: {
+					 if ( ip in planesList.getAllAirPlanes() ) {
+						 airPlane.setLatAnteriorMap(planesList.getAirPlane(ip).getLatMap());
+					 } else {
+						airPlane.setLatAnteriorMap(0);
+					 }
+					 airPlane.setLatMap(value);
+					 break;
+				 }
 				 case Constants.LONGITUDE: {
-				 	/*
-				 	this.latMap.put(ip.toString(), new Float(latitude));
-					this.lonMap.put(ip.toString(), new Float(longitude));
-
-					float lat1 = this.getLatAnteriorMap().containsKey(ip.toString()) ? this.getLatAnteriorMap().get(ip.toString()) : 0;
-					float lon1 = this.getLonAnteriorMap().containsKey(ip.toString()) ? this.getLonAnteriorMap().get(ip.toString()) : 0;
-					this.calculateBearing(ip, lat1, lon1, new Float(latitude), new Float(longitude));
-
-					this.latAnteriorMap.put(ip.toString(), new Float(latitude));
-					this.lonAnteriorMap.put(ip.toString(), new Float(longitude));
-				 	*/
+					if ( ip in planesList.getAllAirPlanes() ) {
+						airPlane.setLonAnteriorMap(planesList.getAirPlane(ip).getLonMap());
+					} else {
+						airPlane.setLonAnteriorMap(0);
+					}
+					airPlane.setLonMap(value);
+					airPlane.calculateBearing(parseFloat(airPlane.getLatMap()), parseFloat(value));
 				 	break;
 				 }
 				 case Constants.WEIGHT_TOTAL_FUEL: {break;}
@@ -152,10 +158,12 @@ function receiveMessage(message, remote) {
 	   		   logger.debug("Message...: %s - %s",label,value);
 		});
 		   
-		eventEmitter.emit('receivedMessage', airPlane);
+		planesList.addAirPlane(airPlane.getIp(),airPlane);
+		eventEmitter.emit('receivedMessage', planesList);
 
     } catch (err) {
-   		logger.error(new Error(err.toString()).stack);
+		logger.error(new Error(err.toString()));
    		throw err;
     }
 }
+

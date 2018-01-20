@@ -1,15 +1,17 @@
 // Author Ualter Jr.
+const utils        = require('./../utils/utils.js');
 
 // Class Constructor and Attributes
-function AirPlane() {
+function AirPlane(ip) {
+	this.ip                 = ip;
 	this.latMap				= "";
 	this.lonMap				= "";
 	this.latAnteriorMap		= "";
 	this.lonAnteriorMap		= "";
-	this.altMap				= "";
+	this.altMap				= 0 ;
 	this.airSpeed			= "";
 	this.vSpeed				= "";
-	this.groundSpeed		= "";
+	this.groundSpeed		= 0;
 	this.bearing			= "";
 	this.destination		= "";
 	this.gpsDistanceNm		= "";
@@ -27,6 +29,9 @@ function AirPlane() {
 
 // Class Functions
 AirPlane.prototype = {
+	getIp: function(){
+		return this.ip;
+	},
 	getLatMap: function() {
 		return this.latMap;
 	},
@@ -152,8 +157,29 @@ AirPlane.prototype = {
 	},
 	setCom2Freq: function(vlr) {
 		this.com2Freq = vlr;
+	},
+
+	calculateBearing: function(lat2, lon2) {
+		var longitude1 = parseFloat(this.lonAnteriorMap);
+		var longitude2 = lon2;
+
+		var latitude1  = utils.degreesToRadians(this.latAnteriorMap);
+		var latitude2  = utils.degreesToRadians(lat2);
+
+		var longDiff   = utils.degreesToRadians(longitude2 - longitude1);
+
+		var y = Math.sin(longDiff) * Math.cos(latitude2);
+		var x = Math.cos(latitude1) * Math.sin(latitude2) - Math.sin(latitude1) * Math.cos(latitude2) * Math.cos(longDiff);
+	
+		var result = (utils.radiansToDegrees(Math.atan2(y, x)) + 360) % 360;
+		if ( result > 0 ) {
+			this.bearing = parseFloat(result);
+		}
 	}
+
+
 };
+
 
 module.exports = AirPlane;
 

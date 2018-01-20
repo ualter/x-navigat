@@ -1,6 +1,6 @@
 const period = 1000; // time between refreshes in ms
 
-var posClient = new google.maps.LatLng(-23.62611, -46.656387)
+var posClient = new google.maps.LatLng(41.546199, 2.108623)
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
     	posClient = {
@@ -624,24 +624,23 @@ function updatePosition() {
 							name : ip.replace(/-/g, '.'),
 							lon : 0,
 							lat : 0,
-							alt : data[ip].alt,
+							alt : data[ip].altMap,
 							marker : new google.maps.Marker(markerOptions),
 							trace : new google.maps.Polyline(polyOptions),
 							info : new google.maps.InfoWindow(),
 							color : color,
 							vSpeed : data[ip].vSpeed,
 							airSpeed : data[ip].airSpeed,
-							gSpeed : data[ip].gSpeed,
+							gSpeed : data[ip].groundSpeed,
 							heading : data[ip].bearing,
-							dest : data[ip].dest,
-							gpsDistNm : data[ip].gpsDistNm,
-							gpsDistTime : data[ip].gpsDistTime,
+							dest : data[ip].destination,
+							gpsDistNm : data[ip].gpsDistanceNm,
+							gpsDistTime : data[ip].gpsDistanceTime,
 							nav1 : data[ip].nav1Freq,
 							nav2 : data[ip].nav2Freq,
 							barometer : data[ip].barometer,
 							fuelQuantity : data[ip].fuelQuantity,
-							fuelQuantity : data[ip].fuelQuantity,
-							outsideTemp : data[ip].outsideTemp,
+							outsideTemp : data[ip].outsideTemperature,
 							com1 : data[ip].com1Freq,
 							com2 : data[ip].com2Freq,
 							compassHeading : data[ip].compassHeading
@@ -664,20 +663,21 @@ function updatePosition() {
 						planeList[ip].trace.setMap(map);
 						planeToFollow = ip;
 					}
-					newLat = data[ip].lat;
-					newLon = data[ip].lon;
-					planeList[ip].alt            = data[ip].alt;
+					newLat                       = data[ip].latMap;
+					newLon                       = data[ip].lonMap;
+					planeList[ip].alt            = data[ip].altMap;
 					planeList[ip].vSpeed         = data[ip].vSpeed;
 					planeList[ip].airSpeed       = data[ip].airSpeed;
 					planeList[ip].heading        = data[ip].bearing;
-					planeList[ip].dest           = data[ip].dest;
-					planeList[ip].gpsDistNm      = data[ip].gpsDistNm;
-					planeList[ip].gpsDistTime    = data[ip].gpsDistTime;
+					planeList[ip].dest           = data[ip].destination;
+					planeList[ip].gpsDistNm      = data[ip].gpsDistanceNm;
+					planeList[ip].gpsDistTime    = data[ip].gpsDistanceTime;
+					planeList[ip].gSpeed         = data[ip].groundSpeed;
 					planeList[ip].nav1           = data[ip].nav1Freq;
 					planeList[ip].nav2           = data[ip].nav2Freq;
 					planeList[ip].barometer      = data[ip].barometer;
 					planeList[ip].fuelQuantity   = data[ip].fuelQuantity;
-					planeList[ip].outsideTemp    = data[ip].outsideTemp;
+					planeList[ip].outsideTemp    = data[ip].outsideTemperature;
 					planeList[ip].com1           = data[ip].com1Freq;
 					planeList[ip].com2           = data[ip].com2Freq;
 					planeList[ip].compassHeading = data[ip].compassHeading;
@@ -752,7 +752,7 @@ function updatePosition() {
 					infoContent += " </tr><tr>";
 					
 					infoContent += " <td>OAT:</td><td><span class='planeDataInfo'>" + planeList[ip].outsideTemp + "</span>&deg;&nbsp</td>";
-					infoContent += " <td>GS:</td><td><span class='planeDataInfo'>" + planeList[ip].gSpeed.toFixed() + "</span>&nbsp;kts</td>";
+					infoContent += " <td>GS:</td><td><span class='planeDataInfo'>" + parseFloat(planeList[ip].gSpeed).toFixed() + "</span>&nbsp;kts</td>";
 					infoContent += " </tr>";
 				
 					infoContent += " </table>";
@@ -909,9 +909,9 @@ function toogleLabelWaypoint() {
 
 // ready when you are!
 google.maps.event.addDomListener(window, 'load', initialize);
-/*window.showNavaids         = showNavaids;
+// This is necessary to make those functions visible outside the JS file when using the WebPack bundle tool to run the solution
+window.showNavaids         = showNavaids;
 window.toggleFlightPanel   = toggleFlightPanel;
 window.toggleChaseAirplane = toggleChaseAirplane;
 window.toogleLabelRoute    = toogleLabelRoute;
 window.toogleLabelWaypoint = toogleLabelWaypoint;
-*/
