@@ -1,9 +1,9 @@
-const path = require('path');
-const fs   = require('fs');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path               = require('path');
+const fs                 = require('fs');
+const HtmlWebpackPlugin  = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const webpack = require('webpack');
+const CopyWebpackPlugin  = require('copy-webpack-plugin');
+const webpack            = require('webpack');
 
 const htmlMinifierObj = {
   collapseWhitespace: true,

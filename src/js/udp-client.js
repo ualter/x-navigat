@@ -4,8 +4,9 @@ var HOST = '192.168.0.22';
 var dgram = require('dgram');
 var client = dgram.createSocket('udp4');
 
-const intervalObj = setInterval(sendMsg, 1000);
-setTimeout(turnOff,18500)
+var delayMs = 500;
+const intervalObj = setInterval(sendMsg, delayMs);
+setTimeout(turnOff,(delayMs * 18) + delayMs)
 
 var latitude  = 40.4675843;
 var longitude = -3.55888367;

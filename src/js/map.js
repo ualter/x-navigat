@@ -102,6 +102,7 @@ var markersLabelRoute = [];
 var markersWaypoint   = [];
 var elInfoBoxPlane;
 var chaseAirplane = false;
+var showHideAirPlaneRoutes = false;
 
 $.ajaxSetup({
 	cache : false
@@ -125,12 +126,28 @@ function initialize() {
 		if (e.keyCode == 19) {
 			$.getJSON("pause").done(function(data){}).error(function() {showError('Not able to Pause X-Plane.')});
 		}
-		// Character: C
+		// Character: C 
+		// Restart AirPlane Routes
 		if (e.keyCode == 67) {
-			// Clean routes
-			//planeList[ip].trace.setMap(null);
-			//planeList[ip].marker.setMap(null);
-
+			// 
+			var newTraceRoute = new google.maps.Polyline(polyOptions);
+			newTraceRoute.setMap(map);
+			for (ipPlane in planeList) {
+				planeList[ipPlane].trace.setMap(null);
+				planeList[ipPlane].trace = newTraceRoute;
+			}
+		}
+		// Character: H
+		// Hide/Show AirPlane Routes
+		if (e.keyCode == 72) {
+			for (ipPlane in planeList) {
+				if ( !showHideAirPlaneRoutes ) {
+					planeList[ipPlane].trace.setMap(null);
+				} else {
+					planeList[ipPlane].trace.setMap(map);
+				}
+			}
+			showHideAirPlaneRoutes = !showHideAirPlaneRoutes;
 		}
 	});
 	
