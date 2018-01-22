@@ -56,7 +56,6 @@ app.get("/data", (request, response) => {
     //response.send( airPlane );
     // Pretty-Print
     response.send(JSON.stringify(planesList.getAllAirPlanes(), null, 4));
-    
 })
 
 app.listen(PORT, (err) => {
