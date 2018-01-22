@@ -1,3 +1,5 @@
+// Author Ualter Jr.
+
 const period = 1000; // time between refreshes in ms
 
 var posClient = new google.maps.LatLng(41.546199, 2.108623)

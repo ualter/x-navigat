@@ -1,3 +1,5 @@
+// Author Ualter Jr.
+
 const utils     = require('./utils/utils.js');
 const logger    = require('./utils/logger.js')(module);
 const model     = require('./model');
@@ -61,7 +63,7 @@ app.get("/data", (request, response) => {
 app.listen(PORT, (err) => {
 
     if (err) {
-        logger.error(new Error(err.toString()).stack);
+        logger.error(new Error(err.toString()));
         throw err;
     }
 
