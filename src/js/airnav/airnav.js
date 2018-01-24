@@ -25,23 +25,47 @@ try {
             var frequency   = line.substring(42,49).trim();
             var col6        = line.substring(42,49).trim();
             var col7        = line.substring(51,55).trim();
-            var code        = line.substring(57,66).trim();
+            var col8        = line.substring(57,66).trim();
             var col9        = line.substring(68,71).trim();
             var col10       = line.substring(72,76).trim();
-            var col11       = line.substring(78,79).trim();
-            var description = line.substring(81).trim();
+            var col11       = line.substring(77,79).trim();
+            var col12       = line.substring(80).trim();
 
             var airnav;
+            var runway;
+            var dmeIls;
+            console.log("col6:" + col6 + ", col7:" + col7 + ", col8:" + col8 + ", col9:" + col9 + ", col10:" + col10 + ", col11:" + col11 );
             switch (id) {
-                case 3:
-                    airnav = new model.Navaid(code, description, frequency, latitude, longitude, model.Navaid.VOR);        
-                    logger.debug(airnav);
+                // NDB
+                case 2:
+                    // code, description, frequency, latitude, longitude, type
+                    airnav = new model.Navaid(col8, col12, frequency, latitude, longitude, model.Navaid.NDB);        
+                    logger.debug("Loaded...: " + airnav);
                     break;
+                // VOR    
+                case 3:
+                    // code, description, frequency, latitude, longitude, type
+                    airnav = new model.Navaid(col8, col12, frequency, latitude, longitude, model.Navaid.VOR);        
+                    logger.debug("Loaded...: " + airnav);
+                    break;
+                // RUNWAY    
+                case 8:
+                    // number, frequency, latitude, longitude, heading, elevation, length
+                    runway = new model.Runway(col12, frequency, latitude, longitude, parseInt(col8), 0, 0);
+                    logger.debug("Loaded...: " + runway);
+                    break;
+                // DME-ILS    
+                case 12:
+                    // number, frequency, latitude, longitude, heading, elevation, length
+                    //dmeIls = new model.DmeIls(col12, frequency, latitude, longitude, parseInt(col8), 0, 0);
+                    logger.debug("Loaded...: " + runway);
+                    break;        
                 default:
                     break;
             }
             
-            //logger.debug( id + ", " + latitude + "," + longitude + "," + col4 + "," + frequency + "," + col6 + "," + col7 + "," + code + "," + col9 + "," + col10 + "," + col11 + "," + description);
+            
+            //logger.debug( id + ", " + latitude + "," + longitude + "," + col4 + "," + frequency + "," + col6 + "," + col7 + "," + col8 + "," + col9 + "," + col10 + "," + col11 + "," + col12);
         });
 
     } else {

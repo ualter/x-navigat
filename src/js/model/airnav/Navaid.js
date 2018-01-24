@@ -4,7 +4,7 @@
 // Class Constructor and Attributes
 function Navaid(code, description, frequency, latitude, longitude, type) {
     this.code         = code;
-	  this.description  = description;
+	this.description  = description;
     this.frequency    = frequency;
     this.latitude     = latitude;
     this.longitude    = longitude;
@@ -32,7 +32,7 @@ Navaid.prototype = {
 		  return this.type;
     },
     toString: function() {
-        return "[" + this.code + "," + this.description + "," + this.frequency + "," + this.latitude + "," + this.longitude + "," + this.type  + "]";
+        return this.type + ": [ code:" + this.code + ", description:" + this.description + ", frequency:" + this.frequency + ", latitude:" + this.latitude + ", longitude:" + this.longitude + ", type:" + this.type  + " ]";
     }
 };
 

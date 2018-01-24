@@ -1,3 +1,5 @@
+// Author Ualter Jr.
+
 var PORT = 8881;
 var HOST = '192.168.0.22';
 
