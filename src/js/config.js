@@ -11,8 +11,8 @@ config.logger.fileTrace.level = 'info';
 
 // Airnav
 config.airnav           = {};
-//config.airnav.pathFiles = "c:/X-Plane 11/Resources/default data/";
-config.airnav.pathFiles = "c:/Users/Ualter/Developer/x-navigat/x-navigat/airnav-samples/";
+config.airnav.pathFiles = "c:/X-Plane 11/Resources/default data/";
+//config.airnav.pathFiles = "c:/Users/Ualter/Developer/x-navigat/x-navigat/airnav-samples/";
 
 
 module.exports = config;

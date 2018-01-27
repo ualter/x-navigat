@@ -9,6 +9,7 @@ npm install --save-dev copy-webpack-plugin
 npm install html-webpack-plugin --save-dev
 npm install clean-webpack-plugin --save-dev
 npm install --save-dev webpack-dev-server
+npm install readline-sync --save
 
 # Update Packages
 npm i -g npm-check-updates

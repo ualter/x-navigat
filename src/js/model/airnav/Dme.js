@@ -2,7 +2,7 @@
 
 
 // Class Constructor and Attributes
-function DmeIls(frequency, description, latitude, longitude, icaoId) {
+function Dme(frequency, description, latitude, longitude, icaoId) {
     this.frequency    = frequency;
 	this.description  = description;
     this.latitude     = latitude;
@@ -11,7 +11,7 @@ function DmeIls(frequency, description, latitude, longitude, icaoId) {
 };
 
 // Class Functions
-DmeIls.prototype = {
+Dme.prototype = {
     getFrequency: function() {
         return this.frequency;
     },
@@ -28,8 +28,13 @@ DmeIls.prototype = {
         return this.icaoId;
     },
     toString: function() {
-        return "DmeIls: [ Frequency:" + this.frequency + ", description:" + this.description + ", latitude:" + this.latitude + ", longitude:" + this.longitude + ", IcaoID:" + this.icaoId +  " ]";
+        return "Dme: [ Frequency:" + this.frequency + 
+        ", description:" + this.description + 
+        ", latitude:" + this.latitude + 
+        ", longitude:" + this.longitude + 
+        ", IcaoID:" + this.icaoId +  
+        " ]";
     }
 };
 
-module.exports = DmeIls;
+module.exports = Dme;

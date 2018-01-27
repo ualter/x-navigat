@@ -2,13 +2,13 @@
 
 
 // Class Constructor and Attributes
-function Airport(icaoId, name, frequency, latitude, longitude) {
+function Airport(icaoId, name, latitude, longitude) {
     this.icaoId       = icaoId;
 	this.name         = name;
-    this.frequency    = frequency;
     this.latitude     = latitude;
     this.longitude    = longitude;
     this.runways      = {};
+    this.glideSlopes  = {};
 };
 
 // Class Functions
@@ -18,9 +18,6 @@ Airport.prototype = {
     },
 	getName: function() {
 		return this.name;
-    },
-    getFrequency: function() {
-		return this.frequency;
     },
     getLatitude: function() {
 		return this.latitude;
@@ -37,14 +34,36 @@ Airport.prototype = {
     getAllRunways() {
         return this.runways;
     },
+    addGlideSlope(number, glideSlope) {
+        this.glideSlopes[number] = glideSlope;
+    },
+    getGlideSlope(number) {
+        return this.glideSlopes[number];
+    },
+    getAllGlideSlopes() {
+        return this.glideSlopes;
+    },
     toString: function() {
         var r    = "";
         for(number in this.runways) {
             r = r + number + ", "
         }
-        runs = "Runways: [" + r + "]";
+        var runs = "Runways: [" + r + "]";
 
-        return "[" + this.icaoId + "," + this.name + "," + this.frequency + "," + this.latitude + "," + this.longitude + "," + runs + "]";
+        var g    = "";
+        for(number in this.glideSlopes) {
+            g = g + number + ", "
+        }
+        var glides = "GlideSlopes: [" + r + "]";
+
+        return "Airport: [" + 
+            this.icaoId + "," + 
+            this.name + "," + 
+            this.latitude + "," + 
+            this.longitude + "," + 
+            runs + "," +
+            glides +
+            "]";
     }
 };
 
