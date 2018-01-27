@@ -1,49 +1,34 @@
 // Author Ualter Jr.
 
-const config   = require('../config');
-const logger   = require('../utils/logger.js')(module);
-const readline = require('readline');
-const fs       = require('fs');
-const path     = require('path');
-const model    = require('./../model/airnav');
-const es       = require('event-stream');
+const config       = require('../config');
+const logger       = require('../utils/logger.js')(module);
+const readline     = require('readline');
+const fs           = require('fs');
+const path         = require('path');
+const model        = require('./../model/airnav');
+const es           = require('event-stream');
+const inherits     = require('util').inherits;  
+const EventEmitter = require('events').EventEmitter;
 
-var listAirports = {};
+function Airnav() {
+    this.loaded       = false;
+    this.listAirports = {};
+    this.listNavaids  = {};
 
-try {
+    EventEmitter.call(this);
+};
 
-    var fileName = config.airnav.pathFiles + '/earth_nav.dat';
-    if ( fs.existsSync(fileName) ) {
+inherits(Airnav, EventEmitter);
 
-        logger.debug("Reading file %s", fileName);
-
-        var s = fs.createReadStream(fileName)
-            .pipe(es.split())
-            .pipe(es.mapSync(function(line) {
-                s.pause();
-                processLine(line);
-                s.resume();
-            }).on('error', function(err) {
-                logger.error(new Error(err.toString()).stack);
-                throw err;
-            }).on('end', function() {
-                for (key in listAirports) {
-                    logger.debug( "Loaded...: " + listAirports[key]);
-                }
-            })
-        );
-
-    } else {
-        var error = new Error("File '" + fileName + "' was not found!");
-        throw error;
-    }
-
-} catch (err) {
-    logger.error(new Error(err.toString()).stack);
-    throw err;
+Airnav.prototype.getListAirports = function() {
+    return this.listAirports;
 }
 
-function processLine(line) {
+Airnav.prototype.getListNavaids = function() {
+    return this.listNavaids;
+}
+
+Airnav.prototype.processLine = function(line) {
     var id          = parseInt(line.substring(0,2).trim());
     var latitude    = line.substring(4,16).trim();
     var longitude   = line.substring(18,31).trim();
@@ -63,56 +48,107 @@ function processLine(line) {
         case 2:
             // code, description, frequency, latitude, longitude, type
             var airnav = new model.Navaid(col9, col12, frequency, latitude, longitude, model.Navaid.NDB);        
+            Airnav.prototype.getListNavaids[col9] = airnav;
             logger.debug("Loaded...: " + airnav);
+            this.emit('loadedAirnav', airnav);
             break;
         // VOR    
         case 3:
             // code, description, frequency, latitude, longitude, type
             var airnav = new model.Navaid(col9, col12, frequency, latitude, longitude, model.Navaid.VOR);        
+            Airnav.prototype.getListNavaids[col9] = airnav;
             logger.debug("Loaded...: " + airnav);
+            this.emit('loadedAirnav', airnav);
             break;
         // RUNWAY & AIRPORT    
         case 4:
         case 5:
             // Load the Aiport
             var icaoId = col10;
-            var airport = loadAirport(icaoId,latitude,longitude);
+            var airport = Airnav.prototype.loadAirport(icaoId,latitude,longitude);
 
             // number, frequency, latitude, longitude, heading, elevation, length
             var runway = new model.Runway(col12, frequency, latitude, longitude, parseInt(col8), 0, 0);
             airport.addRunway(col12,runway);
             logger.debug("Loaded...: " + runway);
+            this.emit('loadedRunway', runway);
             break;
         // GLIDESLOPE & AIRPORT      
         case 6:
             // Load the Aiport
             var icaoId = col10;
-            var airport = loadAirport(icaoId,latitude,longitude);
+            var airport = Airnav.prototype.loadAirport(icaoId,latitude,longitude);
 
             // number, frequency, latitude, longitude, heading, elevation, length
             var glideSlope = new model.Glideslope(col12, frequency, latitude, longitude, parseInt(col8), 0, 0);
             airport.addGlideSlope(col12,glideSlope);
             logger.debug("Loaded...: " + glideSlope);
+            this.emit('loadedGlideSlope', runway);
             break;    
         // DME    
         case 12:
             // frequency, description, latitude, longitude, icaoId
             dme = new model.Dme(frequency, col12, latitude, longitude, parseInt(col8), 0, 0);
             logger.debug("Loaded...: " + dme);
+            this.emit('loadedDme', dme);
             break; 
         default:
-            logger.debug("Not processed: " + id);
+            //logger.debug("Not processed: " + id);
             break;
     }
-    
     //logger.debug( id + ", " + latitude + "," + longitude + "," + col4 + "," + frequency + "," + col6 + "," + col7 + "," + col8 + "," + col9 + "," + col10 + "," + col11 + "," + col12);
-
 }
 
-function loadAirport(icaoId,latitude,longitude) {
-    if ( !(icaoId in listAirports) ) {
-        var airport = new model.Airport(icaoId,icaoId,latitude,longitude);
-        listAirports[icaoId] = airport;
+Airnav.prototype.load = function() {
+    try {
+        this.emit('startLoad', 'Start Loading Airnav Data...');
+        var fileName = config.airnav.pathFiles + '/earth_nav.dat';
+        if ( fs.existsSync(fileName) ) {
+
+            logger.debug("Reading file %s", fileName);
+
+            var s = fs.createReadStream(fileName)
+                .pipe(es.split())
+                .pipe(es.mapSync(function(line) {
+                    s.pause();
+                    Airnav.prototype.processLine(line);
+                    s.resume();
+                }).on('error', function(err) {
+                    logger.error(new Error(err.toString()).stack);
+                    throw err;
+                }).on('end', function() {
+                    console.log('1');
+                    if ( config.logger.console.level == 'debug' ) {
+                        for (key in Airnav.prototype.listAirports) {
+                            logger.debug( "Loaded...: " + Airnav.prototype.listAirports[key]);
+                        }
+
+                        for (key in Airnav.prototype.listNavaids) {
+                            logger.debug( "Loaded...: " + Airnav.prototype.listNavaids[key]);
+                        }
+                    }
+                    this.loaded = true;
+                })
+            );
+            console.log('2');
+        } else {
+            var error = new Error("File '" + fileName + "' was not found!");
+            throw error;
+        }
+    } catch (err) {
+        logger.error(new Error(err.toString()).stack);
+        throw err;
     }
-    return listAirports[icaoId];
+} 
+
+Airnav.prototype.loadAirport = function(icaoId,latitude,longitude) {
+    if ( !(icaoId in Airnav.prototype.getListAirports ) ) {
+        var airport = new model.Airport(icaoId,icaoId,latitude,longitude);
+        this.emit('loadedAirport', airport);
+        Airnav.prototype.getListAirports[icaoId] = airport;
+    }
+    return Airnav.prototype.getListAirports[icaoId];
 }
+
+module.exports = Airnav;
+

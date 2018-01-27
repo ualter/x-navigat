@@ -1,10 +1,16 @@
 const model   = require('./model');
+const airnav  = require('./airnav');
 const logger  = require('./utils/logger.js')(module);
 const config  = require('./config');
 
+var a = new airnav.Airnav();
+a.on('endLoad', (data) => {
+    console.log(a.getListAirports['LEBL']);
+});
+a.load();
 
-console.log(config.logger.fileTrace.level);
-//logger.info("Hello %s", "ualter");
+//setTimeout(function(){ "Hello"; }, 10000);
+
 
 /*
 
