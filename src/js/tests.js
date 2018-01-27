@@ -1,13 +1,27 @@
+// Author Ualter Jr.
+
 const model   = require('./model');
 const airnav  = require('./airnav');
 const logger  = require('./utils/logger.js')(module);
 const config  = require('./config');
 
-var a = new airnav.Airnav();
-a.on('endLoad', (data) => {
-    console.log(a.getListAirports['LEBL']);
-});
-a.load();
+var airNav = new airnav.Airnav();
+airNav
+    .on('startLoad', (data) => {
+        console.log(data);
+    })
+    .on('loadedAirport', (airport) => {
+        console.log(`Loading Airport..: ${airport.icaoId}`);
+    })
+    .on('loadedDme', (data) => {
+        //console.log(data);
+    }).on('endLoad', (data) => {
+        console.log(data);
+        console.log(airNav.getListAirports['LEBL'].toString());
+    });
+airNav.load();
+
+
 
 //setTimeout(function(){ "Hello"; }, 10000);
 

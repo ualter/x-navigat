@@ -6,7 +6,7 @@ const readline     = require('readline');
 const fs           = require('fs');
 const path         = require('path');
 const model        = require('./../model/airnav');
-const es           = require('event-stream');
+const lineByLine   = require('n-readlines');
 const inherits     = require('util').inherits;  
 const EventEmitter = require('events').EventEmitter;
 
@@ -21,10 +21,16 @@ function Airnav() {
 inherits(Airnav, EventEmitter);
 
 Airnav.prototype.getListAirports = function() {
+    if ( !this.loaded ) {
+        throw new Error('Fist! You must load the data, call the method load()');
+    }
     return this.listAirports;
 }
 
 Airnav.prototype.getListNavaids = function() {
+    if ( !this.loaded ) {
+        throw new Error('Fist! You must load the data, call the method load()');
+    }
     return this.listNavaids;
 }
 
@@ -65,7 +71,7 @@ Airnav.prototype.processLine = function(line) {
         case 5:
             // Load the Aiport
             var icaoId = col10;
-            var airport = Airnav.prototype.loadAirport(icaoId,latitude,longitude);
+            var airport = this.loadAirport(icaoId,latitude,longitude);
 
             // number, frequency, latitude, longitude, heading, elevation, length
             var runway = new model.Runway(col12, frequency, latitude, longitude, parseInt(col8), 0, 0);
@@ -77,7 +83,7 @@ Airnav.prototype.processLine = function(line) {
         case 6:
             // Load the Aiport
             var icaoId = col10;
-            var airport = Airnav.prototype.loadAirport(icaoId,latitude,longitude);
+            var airport = this.loadAirport(icaoId,latitude,longitude);
 
             // number, frequency, latitude, longitude, heading, elevation, length
             var glideSlope = new model.Glideslope(col12, frequency, latitude, longitude, parseInt(col8), 0, 0);
@@ -107,30 +113,25 @@ Airnav.prototype.load = function() {
 
             logger.debug("Reading file %s", fileName);
 
-            var s = fs.createReadStream(fileName)
-                .pipe(es.split())
-                .pipe(es.mapSync(function(line) {
-                    s.pause();
-                    Airnav.prototype.processLine(line);
-                    s.resume();
-                }).on('error', function(err) {
-                    logger.error(new Error(err.toString()).stack);
-                    throw err;
-                }).on('end', function() {
-                    console.log('1');
-                    if ( config.logger.console.level == 'debug' ) {
-                        for (key in Airnav.prototype.listAirports) {
-                            logger.debug( "Loaded...: " + Airnav.prototype.listAirports[key]);
-                        }
+            var liner = new lineByLine(fileName);
+            var line;
+            while ( line = liner.next() ) {
+                this.processLine(line.toString('ascii'));
+            }
 
-                        for (key in Airnav.prototype.listNavaids) {
-                            logger.debug( "Loaded...: " + Airnav.prototype.listNavaids[key]);
-                        }
-                    }
-                    this.loaded = true;
-                })
-            );
-            console.log('2');
+            if ( config.logger.console.level == 'debug' ) {
+                for (key in Airnav.prototype.listAirports) {
+                    logger.debug( "Loaded...: " + Airnav.prototype.listAirports[key]);
+                }
+
+                for (key in Airnav.prototype.listNavaids) {
+                    logger.debug( "Loaded...: " + Airnav.prototype.listNavaids[key]);
+                }
+            }
+
+            this.loaded = true;
+            this.emit('endLoad', 'End Loading Airnav Data...');
+
         } else {
             var error = new Error("File '" + fileName + "' was not found!");
             throw error;
