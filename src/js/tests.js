@@ -5,6 +5,10 @@ const airnav  = require('./airnav');
 const logger  = require('./utils/logger.js')(module);
 const config  = require('./config');
 
+var req = "/flightplan?departure=LEBL&waypoints=SLL1%2BMARIO1%2B&destination=LEMD&_=1518289907529";
+req
+
+/*
 var airNav = new airnav.Airnav();
 airNav
     .on('startLoad', (data) => {
@@ -20,7 +24,7 @@ airNav
         console.log(airNav.getListAirports['LEBL'].toString());
     });
 airNav.load();
-
+*/
 
 
 //setTimeout(function(){ "Hello"; }, 10000);

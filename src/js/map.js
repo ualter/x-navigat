@@ -279,7 +279,7 @@ function loadingFlightPlanState(loading) {
 
 function loadFlightPlan() {
 	// Loading flightPlanCoordinates variable
-	var departureLatLng = new google.maps.LatLng(flightPlan.departure.latitude, flightPlan.departure.longitude);
+	var departureLatLng   = new google.maps.LatLng(flightPlan.departure.latitude, flightPlan.departure.longitude);
 	var destinationLatLng = new google.maps.LatLng(flightPlan.destination.latitude, flightPlan.destination.longitude); 
 	var arrCoord = new Array();
 	arrCoord[0] = departureLatLng;

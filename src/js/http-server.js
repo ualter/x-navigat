@@ -60,6 +60,19 @@ app.get("/data", (request, response) => {
     response.send(JSON.stringify(planesList.getAllAirPlanes(), null, 4));
 })
 
+// Data game
+app.get("/flightplan", (request, response) => {
+    response.type('json');
+    console.log(request.query.departure);
+    // TODO: Load the FlightPlan coming in the Request and send it back in JSON
+    // 1) Receive the parameters: /flightplan?departure=LEBL&waypoints=SLL1%2BMARIO1%2B&destination=LEMD&_=1518289907529
+    // 2) Extract and interprets each one of them (departure, waypoitns, destination, etc.)
+    // 3) Load them from the loaded database 
+    // 4) 
+
+    response.send(JSON.stringify(planesList.getAllAirPlanes(), null, 4));
+})
+
 app.listen(PORT, (err) => {
 
     if (err) {

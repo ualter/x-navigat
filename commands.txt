@@ -16,11 +16,6 @@ npm i -g npm-check-updates
 npm-check-updates -u
 npm install
 
-# Run webpack
-./node_modules/.bin/webpack src/index.js dist/bundle.js
-
-./node_modules/.bin/webpack --config webpack.config.js
-
 # RUN
 npm run build
-nmp start
+npm start

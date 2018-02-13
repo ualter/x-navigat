@@ -1,0 +1,369 @@
+{
+    "valid" : true,
+    "destination" : {
+      "name" : "ADOLFO SUAREZ MADRID",
+      "type" : "AIRPORT",
+      "longitude" : -3.560833,
+      "runways" : {
+        "32R" : {
+          "length" : 11483,
+          "name" : "RWY 32R",
+          "type" : "RUNWAY",
+          "number" : "32R",
+          "longitude" : -3.536195,
+          "latitude" : 40.47357,
+          "frequency" : "109.100",
+          "heading" : 324,
+          "elevation" : 1886
+        },
+        "18L" : {
+          "length" : 11483,
+          "name" : "RWY 18L",
+          "type" : "RUNWAY",
+          "number" : "18L",
+          "longitude" : -3.559356,
+          "latitude" : 40.52812,
+          "frequency" : "111.500",
+          "heading" : 181,
+          "elevation" : 1922
+        },
+        "14L" : {
+          "length" : 11483,
+          "name" : "RWY 14L",
+          "type" : "RUNWAY",
+          "number" : "14L",
+          "longitude" : -3.55787,
+          "latitude" : 40.49492,
+          "frequency" : "0.000",
+          "heading" : 144,
+          "elevation" : 1942
+        },
+        "36L" : {
+          "length" : 13711,
+          "name" : "RWY 36L",
+          "type" : "RUNWAY",
+          "number" : "36L",
+          "longitude" : -3.574622,
+          "latitude" : 40.492588,
+          "frequency" : "0.000",
+          "heading" : 1,
+          "elevation" : 1985
+        },
+        "18R" : {
+          "length" : 13711,
+          "name" : "RWY 18R",
+          "type" : "RUNWAY",
+          "number" : "18R",
+          "longitude" : -3.574797,
+          "latitude" : 40.52289,
+          "frequency" : "110.700",
+          "heading" : 181,
+          "elevation" : 1991
+        },
+        "32L" : {
+          "length" : 13084,
+          "name" : "RWY 32L",
+          "type" : "RUNWAY",
+          "number" : "32L",
+          "longitude" : -3.553895,
+          "latitude" : 40.46308,
+          "frequency" : "109.900",
+          "heading" : 324,
+          "elevation" : 1933
+        },
+        "14R" : {
+          "length" : 13084,
+          "name" : "RWY 14R",
+          "type" : "RUNWAY",
+          "number" : "14R",
+          "longitude" : -3.576011,
+          "latitude" : 40.48486,
+          "frequency" : "0.000",
+          "heading" : 144,
+          "elevation" : 1995
+        },
+        "36R" : {
+          "length" : 11483,
+          "name" : "RWY 36R",
+          "type" : "RUNWAY",
+          "number" : "36R",
+          "longitude" : -3.559208,
+          "latitude" : 40.501102,
+          "frequency" : "0.000",
+          "heading" : 1,
+          "elevation" : 1942
+        }
+      },
+      "icaoId" : "LEMD",
+      "latitude" : 40.47222,
+      "arrayRunways" : [ {
+        "length" : 11483,
+        "name" : "RWY 32R",
+        "type" : "RUNWAY",
+        "number" : "32R",
+        "longitude" : -3.536195,
+        "latitude" : 40.47357,
+        "frequency" : "109.100",
+        "heading" : 324,
+        "elevation" : 1886
+      }, {
+        "length" : 11483,
+        "name" : "RWY 18L",
+        "type" : "RUNWAY",
+        "number" : "18L",
+        "longitude" : -3.559356,
+        "latitude" : 40.52812,
+        "frequency" : "111.500",
+        "heading" : 181,
+        "elevation" : 1922
+      }, {
+        "length" : 11483,
+        "name" : "RWY 14L",
+        "type" : "RUNWAY",
+        "number" : "14L",
+        "longitude" : -3.55787,
+        "latitude" : 40.49492,
+        "frequency" : "0.000",
+        "heading" : 144,
+        "elevation" : 1942
+      }, {
+        "length" : 13711,
+        "name" : "RWY 36L",
+        "type" : "RUNWAY",
+        "number" : "36L",
+        "longitude" : -3.574622,
+        "latitude" : 40.492588,
+        "frequency" : "0.000",
+        "heading" : 1,
+        "elevation" : 1985
+      }, {
+        "length" : 13711,
+        "name" : "RWY 18R",
+        "type" : "RUNWAY",
+        "number" : "18R",
+        "longitude" : -3.574797,
+        "latitude" : 40.52289,
+        "frequency" : "110.700",
+        "heading" : 181,
+        "elevation" : 1991
+      }, {
+        "length" : 13084,
+        "name" : "RWY 32L",
+        "type" : "RUNWAY",
+        "number" : "32L",
+        "longitude" : -3.553895,
+        "latitude" : 40.46308,
+        "frequency" : "109.900",
+        "heading" : 324,
+        "elevation" : 1933
+      }, {
+        "length" : 13084,
+        "name" : "RWY 14R",
+        "type" : "RUNWAY",
+        "number" : "14R",
+        "longitude" : -3.576011,
+        "latitude" : 40.48486,
+        "frequency" : "0.000",
+        "heading" : 144,
+        "elevation" : 1995
+      }, {
+        "length" : 11483,
+        "name" : "RWY 36R",
+        "type" : "RUNWAY",
+        "number" : "36R",
+        "longitude" : -3.559208,
+        "latitude" : 40.501102,
+        "frequency" : "0.000",
+        "heading" : 1,
+        "elevation" : 1942
+      } ]
+    },
+    "waypoints" : [ {
+      "name" : "SABADELL",
+      "id" : "SLL",
+      "type" : "VOR",
+      "longitude" : 2.10975,
+      "latitude" : 41.51986,
+      "frequency" : "112.000"
+    }, {
+      "name" : null,
+      "id" : "MARIO",
+      "type" : null,
+      "longitude" : -0.244111,
+      "latitude" : 42.210194,
+      "frequency" : null
+    } ],
+    "infoRoute" : [ {
+      "longitude" : 2.078333,
+      "bearing" : "28",
+      "compassHeading" : "N",
+      "latitude" : 41.296944,
+      "distance" : "13nm",
+      "nextPoint" : "SLL",
+      "currentPoint" : "LEBL",
+      "nextLatitude" : 41.51986,
+      "nextLongitude" : 2.10975,
+      "distanceNM" : 13,
+      "bearingDegree" : 28
+    }, {
+      "longitude" : 2.10975,
+      "bearing" : "314",
+      "compassHeading" : "NW",
+      "latitude" : 41.51986,
+      "distance" : "113nm",
+      "nextPoint" : "MARIO",
+      "currentPoint" : "SLL",
+      "nextLatitude" : 42.210194,
+      "nextLongitude" : -0.244111,
+      "distanceNM" : 113,
+      "bearingDegree" : 314
+    }, {
+      "longitude" : -0.244111,
+      "bearing" : "258",
+      "compassHeading" : "W",
+      "latitude" : 42.210194,
+      "distance" : "182nm",
+      "nextPoint" : "LEMD",
+      "currentPoint" : "MARIO",
+      "nextLatitude" : 40.47222,
+      "nextLongitude" : -3.560833,
+      "distanceNM" : 182,
+      "bearingDegree" : 258
+    } ],
+    "departure" : {
+      "name" : "EL PRAT",
+      "type" : "AIRPORT",
+      "longitude" : 2.078333,
+      "runways" : {
+        "02" : {
+          "length" : 8294,
+          "name" : "RWY 02",
+          "type" : "RUNWAY",
+          "number" : "02",
+          "longitude" : 2.084836,
+          "latitude" : 41.287758,
+          "frequency" : "108.750",
+          "heading" : 19,
+          "elevation" : 7
+        },
+        "07L" : {
+          "length" : 10997,
+          "name" : "RWY 07L",
+          "type" : "RUNWAY",
+          "number" : "07L",
+          "longitude" : 2.07195,
+          "latitude" : 41.294846,
+          "frequency" : "110.300",
+          "heading" : 66,
+          "elevation" : 8
+        },
+        "25L" : {
+          "length" : 8727,
+          "name" : "RWY 25L",
+          "type" : "RUNWAY",
+          "number" : "25L",
+          "longitude" : 2.103281,
+          "latitude" : 41.29222,
+          "frequency" : "111.500",
+          "heading" : 246,
+          "elevation" : 8
+        },
+        "07R" : {
+          "length" : 8727,
+          "name" : "RWY 07R",
+          "type" : "RUNWAY",
+          "number" : "07R",
+          "longitude" : 2.07435,
+          "latitude" : 41.28231,
+          "frequency" : "110.750",
+          "heading" : 66,
+          "elevation" : 8
+        },
+        "20" : {
+          "length" : 8294,
+          "name" : "RWY 20",
+          "type" : "RUNWAY",
+          "number" : "20",
+          "longitude" : 2.094661,
+          "latitude" : 41.309296,
+          "frequency" : "0.000",
+          "heading" : 199,
+          "elevation" : 12
+        },
+        "25R" : {
+          "length" : 10997,
+          "name" : "RWY 25R",
+          "type" : "RUNWAY",
+          "number" : "25R",
+          "longitude" : 2.103731,
+          "latitude" : 41.305725,
+          "frequency" : "109.500",
+          "heading" : 246,
+          "elevation" : 10
+        }
+      },
+      "icaoId" : "LEBL",
+      "latitude" : 41.296944,
+      "arrayRunways" : [ {
+        "length" : 8294,
+        "name" : "RWY 02",
+        "type" : "RUNWAY",
+        "number" : "02",
+        "longitude" : 2.084836,
+        "latitude" : 41.287758,
+        "frequency" : "108.750",
+        "heading" : 19,
+        "elevation" : 7
+      }, {
+        "length" : 10997,
+        "name" : "RWY 07L",
+        "type" : "RUNWAY",
+        "number" : "07L",
+        "longitude" : 2.07195,
+        "latitude" : 41.294846,
+        "frequency" : "110.300",
+        "heading" : 66,
+        "elevation" : 8
+      }, {
+        "length" : 8727,
+        "name" : "RWY 25L",
+        "type" : "RUNWAY",
+        "number" : "25L",
+        "longitude" : 2.103281,
+        "latitude" : 41.29222,
+        "frequency" : "111.500",
+        "heading" : 246,
+        "elevation" : 8
+      }, {
+        "length" : 8727,
+        "name" : "RWY 07R",
+        "type" : "RUNWAY",
+        "number" : "07R",
+        "longitude" : 2.07435,
+        "latitude" : 41.28231,
+        "frequency" : "110.750",
+        "heading" : 66,
+        "elevation" : 8
+      }, {
+        "length" : 8294,
+        "name" : "RWY 20",
+        "type" : "RUNWAY",
+        "number" : "20",
+        "longitude" : 2.094661,
+        "latitude" : 41.309296,
+        "frequency" : "0.000",
+        "heading" : 199,
+        "elevation" : 12
+      }, {
+        "length" : 10997,
+        "name" : "RWY 25R",
+        "type" : "RUNWAY",
+        "number" : "25R",
+        "longitude" : 2.103731,
+        "latitude" : 41.305725,
+        "frequency" : "109.500",
+        "heading" : 246,
+        "elevation" : 10
+      } ]
+    }
+  }

@@ -15,6 +15,8 @@ function Airport(icaoId, name, latitude, longitude) {
 Airport.prototype = {
     getIcaoId: function(){
         return this.icaoId;
+    },getIcaoId: function(){
+        return this.icaoId;
     },
 	getName: function() {
 		return this.name;
