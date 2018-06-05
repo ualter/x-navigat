@@ -10,6 +10,13 @@ npm install html-webpack-plugin --save-dev
 npm install clean-webpack-plugin --save-dev
 npm install --save-dev webpack-dev-server
 
+npm install express --save
+npm install ip
+npm i -S app-root-path
+npm i moment
+npm i string
+npm i winston
+
 # Run webpack
 ./node_modules/.bin/webpack src/index.js dist/bundle.js
 
