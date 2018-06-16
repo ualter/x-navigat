@@ -63,6 +63,9 @@ app.get("/data", (request, response) => {
 // Data game
 app.get("/flightplan", (request, response) => {
     response.type('json');
+    var departure   = request.query.departure;
+    var destination = request.query.destination;
+    var waypoints   = request.query.waypoints;
     console.log(request.query.departure);
     // TODO: Load the FlightPlan coming in the Request and send it back in JSON
     // 1) Receive the parameters: /flightplan?departure=LEBL&waypoints=SLL1%2BMARIO1%2B&destination=LEMD&_=1518289907529
